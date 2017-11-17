@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Accueil
           </a>
         </li>
       
@@ -232,7 +232,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/信用卡指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/信用卡使用指南/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="MrGao">
@@ -251,7 +251,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/08/信用卡指南/" itemprop="url">信用卡指南（招商银行）</a></h1>
+                <a class="post-title-link" href="/2017/11/08/信用卡使用指南/" itemprop="url">信用卡使用指南（招商银行）</a></h1>
         
 
         <div class="post-meta">
@@ -261,7 +261,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
                 2017-11-08
@@ -391,165 +391,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/06/AngularJS之引入错误/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MrGao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大高小郑的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/06/AngularJS之引入错误/" itemprop="url">AngularJs</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-06T00:00:00+08:00">
-                2017-11-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/AngularJs/" itemprop="url" rel="index">
-                    <span itemprop="name">AngularJs</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="当你的angularJS应用出现以下状况时，不要惊慌，且看博主如何逗比"><a href="#当你的angularJS应用出现以下状况时，不要惊慌，且看博主如何逗比" class="headerlink" title="当你的angularJS应用出现以下状况时，不要惊慌，且看博主如何逗比"></a>当你的angularJS应用出现以下状况时，不要惊慌，且看博主如何逗比</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当我拿到别人给的代码，报错如上，我很牛逼的告诉他，so easy，结果搞了<strong>两个小时</strong>才解决了本该<strong>两分钟</strong>就能解决的问题。</p>
-<h2 id="我的想法"><a href="#我的想法" class="headerlink" title="我的想法"></a>我的想法</h2><p>我看到这个错误的时候，就只有一个想法，很明显是’loginCtrl’控制器引入错误了，一定是loginCtrl的引入有问题。</p>
-<ul>
-<li><p><strong>引入路径错误</strong> : 结果就这么一直改啊改啊改啊改，那<script src="/login.js"></script>（引入loginCtrl的js路径）从这挪到那，从那挪到这，可惜那个红红的一行字还是屹立不倒的杵在那。</p>
-</li>
-<li><p><strong>指令位置错误</strong> : 后来我又想，是不是因为ng-controller指令放置的位置有问题，就开始那这个指令从这挪到那从那挪到这的挪着，又或者突发奇想，再添一层div加指令，很开心，错误还是在那静静的坐着。</p>
-</li>
-<li><p><strong>单词拼写错误</strong> : 我又开始怀疑是不是单词拼写错误的原因，很遗憾，并不是。就在我开始思考人生，自己还是不适合干这一行的时候，求教的朋友开始操作起来了，他这一简单的操作，却把我从绝望中拯救出来了。</p>
-</li>
-</ul>
-<h2 id="大神的想法"><a href="#大神的想法" class="headerlink" title="大神的想法"></a>大神的想法</h2><p>( 大神们早已看穿了一切，不是吗 )</p>
-<p>是啊，他把loginCtrl中的依赖注入项都删除掉。我刚开始还在想，这跟那些没关系，这就是这个控制器的引入错误，怎么会和控制器的依赖注入有关系呢。当我盯着那一行红红的english words瞅的时候，我瞬间有了扇自己一巴掌得念头。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>好了，问题解决。心急吃不了热豆腐，==遇到报错，一定要一个单词一个单词的过一遍==( 纵然你可能一个单词也不认识 )。</p>
-<p>其实现在想想还是自己的基础太差，</p>
-<ul>
-<li>控制器引入报错的话，就不会是报这个错，而是报loginCtrl is not define的错。</li>
-<li>报这个错，最后的单词是指明错误所在的区域，错误是依赖注入的报错。</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/开放你的博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -579,7 +420,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
                 2017-11-01
@@ -727,7 +568,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T00:00:00+08:00">
                 2017-10-31
@@ -922,8 +763,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">articles</span>
                 </a>
               </div>
             
