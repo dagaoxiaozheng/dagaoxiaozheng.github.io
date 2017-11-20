@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Accueil
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -218,6 +218,167 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/关于angular的常见报错分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MrGao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大高小郑的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/17/关于angular的常见报错分析/" itemprop="url">关于angular的常见报错分析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+08:00">
+                2017-11-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="1-injector-unpr-–-依赖注入报错"><a href="#1-injector-unpr-–-依赖注入报错" class="headerlink" title="1. [$injector:unpr] – 依赖注入报错"></a>1. [$injector:unpr] – 依赖注入报错</h1><ul>
+<li>错误案例1 ： </li>
+</ul>
+<p><img src="/images/angularError01.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">错误代码 : </div><div class="line">在注册控制器之前未注册ApiService</div><div class="line">angular.controller(&apos;indexController&apos;, [&apos;$scope&apos;, &apos;apiService&apos;, function($scope, apiService) &#123;</div><div class="line">	...</div><div class="line">&#125;])</div></pre></td></tr></table></figure>
+<ul>
+<li>错误案例2 ： </li>
+</ul>
+<p><img src="/images/angularError02.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">错误代码: </div><div class="line">注册apiService时，不是用的ui-router,而是用的ngRouter，所以依赖注入$state失败</div><div class="line">angualr.service(&apos;apiService&apos;, [&apos;$scope&apos;, &apos;$state&apos;, function($scope, $state) &#123;</div><div class="line">	...</div><div class="line">&#125;])</div></pre></td></tr></table></figure>
+<ul>
+<li><p>错误案例3: 当”重复引用”Controller的时候也会报该类型错误</p>
+<p>  已经在js中声明了相应的templateUrl和controllerUrl，还在对应的html文件中继续使用指令ng-controller</p>
+</li>
+</ul>
+<h1 id="2-injector-modulerr-–-模块注入错误"><a href="#2-injector-modulerr-–-模块注入错误" class="headerlink" title="2. [$injector:modulerr] – 模块注入错误"></a>2. [$injector:modulerr] – 模块注入错误</h1><p><img src="/images/angularError03.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">错误代码: </div><div class="line">注册mainModule模块的时候，依赖模块&apos;testModule1111&apos;并不存在</div><div class="line">angular.module(&apos;mainModule&apos;, [&apos;ngRoute&apos;, &apos;testModule1111&apos;]);</div></pre></td></tr></table></figure>
+<h1 id="3-compile-tpload-–-html文件引入错误"><a href="#3-compile-tpload-–-html文件引入错误" class="headerlink" title="3. [$compile:tpload] – html文件引入错误"></a>3. [$compile:tpload] – html文件引入错误</h1><pre><code>一般这个错误前都会有一个.html文件404的错误，是因为你引用的html文件路径或命名有误
+</code></pre><h1 id="4-injector-nomod-–-angular-module定义模块时写法错误"><a href="#4-injector-nomod-–-angular-module定义模块时写法错误" class="headerlink" title="4. [$injector:nomod] – angular.module定义模块时写法错误"></a>4. [$injector:nomod] – angular.module定义模块时写法错误</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;mainModule&apos;, [, &apos;testModule&apos;])</div></pre></td></tr></table></figure>
+<h1 id="5-ng-areq-–-js语法错误"><a href="#5-ng-areq-–-js语法错误" class="headerlink" title="5. [ng:areq] – js语法错误"></a>5. [ng:areq] – js语法错误</h1><pre><code>碰到这个错误，那就抛开angular不用管了，是你的js语法写的有问题。
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +422,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
                 2017-11-08
@@ -282,7 +443,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -420,7 +581,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
                 2017-11-01
@@ -441,7 +602,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -568,7 +729,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posté le</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T00:00:00+08:00">
                 2017-10-31
@@ -589,7 +750,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -763,8 +924,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">articles</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -775,7 +936,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
