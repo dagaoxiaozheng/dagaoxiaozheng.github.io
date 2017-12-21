@@ -104,7 +104,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: 'Penulis'
     },
     algolia: {
       applicationID: '',
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Beranda
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Arsip
           </a>
         </li>
       
@@ -218,6 +218,278 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/ui-bootstrap之弹框/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MrGao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大高小郑的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/21/ui-bootstrap之弹框/" itemprop="url">Tidak ada title</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Diposting di</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-21T09:45:01+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ui-bootstrap-弹框"><a href="#ui-bootstrap-弹框" class="headerlink" title="ui-bootstrap 弹框"></a>ui-bootstrap 弹框</h1><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ul>
+<li><p>引入文件 <a href="http://www.bootcdn.cn/angular-ui-bootstrap/" target="_blank" rel="external">ui-bootstrap-tpls.min.js</a></p>
+</li>
+<li><p>依赖文件 <a href="https://code.angularjs.org/" target="_blank" rel="external">angular.min.js</a></p>
+<p>  Angularjs的版本要在1.4.0以上(后面例子中使用的是1.5.5)，Bootstrap的版本要在3.0以上(后面例子中使用的是3.3.6)</p>
+</li>
+<li><p>依赖模块 IS <font color="red"><strong>‘ui.bootstrap’</strong></font> NOT <font color="red"><strong>‘ui-bootstrap’</strong></font> (感谢大牛俞某)</p>
+</li>
+<li><p>$uibModal.open()的参数中resolve: {name: value},value如果是<font color="red"><strong>字符串</strong></font>，则需要用{name: function(){ return value}}来传，不要问为什么！</p>
+</li>
+</ul>
+<h2 id="配置说明"><a href="#配置说明" class="headerlink" title="配置说明"></a>配置说明</h2><h3 id="uibModal-open-参数"><a href="#uibModal-open-参数" class="headerlink" title="$uibModal.open()  参数"></a>$uibModal.open()  参数</h3><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>默认值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>animation</td>
+<td>true</td>
+<td>是否启用动画</td>
+</tr>
+<tr>
+<td>appendTo</td>
+<td>body</td>
+<td>把模态窗口放在指定的dom元素中。例如$document.find(‘aside’).eq(0)</td>
+</tr>
+<tr>
+<td>backdrop</td>
+<td>true</td>
+<td>打开模态窗口时的背景设置。可设置的值有：true（显示灰色背景，在模态窗口之外单击会关闭模态窗口），false（不显示灰色背景），”static”（显示灰色背景，在模态窗口关闭之前背景元素不可用）</td>
+</tr>
+<tr>
+<td>backdropClass</td>
+<td></td>
+<td>为背景添加的类名</td>
+</tr>
+<tr>
+<td>bindToController</td>
+<td>false</td>
+<td>设置为true并且使用controllerAs参数时，$scope的属性会传递给模态窗口所使用的controller</td>
+</tr>
+<tr>
+<td>controller</td>
+<td></td>
+<td>可以设置为一个表示controller的字符串，或者一个函数，或者一个数组（使用数组标记的方式为控制器注入依赖）。控制器中可使用$uibModalInstance来表示模态窗口的实例。</td>
+</tr>
+<tr>
+<td>controllerAs</td>
+<td></td>
+<td>controller-as语法的替代写法</td>
+</tr>
+<tr>
+<td>keyboard</td>
+<td>true</td>
+<td>是否允许用ESC键关闭模态窗口</td>
+</tr>
+<tr>
+<td>openedClass</td>
+<td>modal-open</td>
+<td>打开模态窗口时为body元素增加的类名</td>
+</tr>
+<tr>
+<td>resolve</td>
+<td></td>
+<td>传递到模态窗口中的对象</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>$rootScope</td>
+<td>模态窗口的父作用域对象</td>
+</tr>
+<tr>
+<td>size</td>
+<td></td>
+<td>一个字符串，和前缀“model-”组合成类名添加到模态窗口上</td>
+</tr>
+<tr>
+<td>template</td>
+<td></td>
+<td>表示模态窗口内容的文本</td>
+</tr>
+<tr>
+<td>templateUrl</td>
+<td></td>
+<td>模态窗口内容的模板url</td>
+</tr>
+<tr>
+<td>windowClass</td>
+<td></td>
+<td>添加到模态窗口模板的类名（不是模态窗口内容模板）</td>
+</tr>
+<tr>
+<td>windowTemplateUrl</td>
+<td>uib/template/modal/window.html</td>
+<td></td>
+</tr>
+<tr>
+<td>windowTopClass</td>
+<td></td>
+<td>添加到顶层模态窗口的类名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="uibModal-open-方法返回一个模态窗口实例，这个实例有几个属性："><a href="#uibModal-open-方法返回一个模态窗口实例，这个实例有几个属性：" class="headerlink" title="$uibModal.open()方法返回一个模态窗口实例，这个实例有几个属性："></a>$uibModal.open()方法返回一个模态窗口实例，这个实例有几个属性：</h3><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>默认值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>属性名</td>
+<td>类型</td>
+<td>说明</td>
+</tr>
+<tr>
+<td>close(result)</td>
+<td>function</td>
+<td>关闭模态窗口，传递一个结果</td>
+</tr>
+<tr>
+<td>dismiss(reason)</td>
+<td>function</td>
+<td>取消模态窗口，传递一个原因</td>
+</tr>
+<tr>
+<td>result</td>
+<td>promise</td>
+<td>一个promise，窗口关闭时为resolved，窗口取消时为rejected</td>
+</tr>
+<tr>
+<td>opened</td>
+<td>promise</td>
+<td>一个promise，窗口打开并下载完内容解析了所有变量后，promise为resolved</td>
+</tr>
+<tr>
+<td>closed</td>
+<td>promise</td>
+<td>一个promise，窗口关闭并且动画结束后为resolved</td>
+</tr>
+<tr>
+<td>rendered</td>
+<td>promise</td>
+<td>一个promise，窗口呈现出来后为resolved</td>
+</tr>
+</tbody>
+</table>
+<h2 id="详细代码"><a href="#详细代码" class="headerlink" title="详细代码"></a><a href="https://github.com/dagaoxiaozheng/ui-bootstrap-tpl-uibModal-" target="_blank" rel="external">详细代码</a></h2>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +533,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-20T00:00:00+08:00">
                 2017-12-20
@@ -282,7 +554,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">Di</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -405,7 +677,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+08:00">
                 2017-11-17
@@ -426,7 +698,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">Di</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -566,7 +838,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
                 2017-11-08
@@ -587,7 +859,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">Di</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -725,7 +997,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
                 2017-11-01
@@ -746,7 +1018,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">Di</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -873,7 +1145,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T00:00:00+08:00">
                 2017-10-31
@@ -894,7 +1166,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">Di</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1068,8 +1340,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">posting</span>
                 </a>
               </div>
             
@@ -1080,7 +1352,7 @@
               <div class="site-state-item site-state-categories">
                 
                   <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-name">kategori</span>
                 
               </div>
             
