@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -218,6 +218,377 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/25/url/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MrGao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大高小郑的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/25/url/" itemprop="url">从输入URL到页面加载发生了什么?</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-25T00:00:00+08:00">
+                2017-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Web/" itemprop="url" rel="index">
+                    <span itemprop="name">Web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="从输入URL到页面加载发生了什么"><a href="#从输入URL到页面加载发生了什么" class="headerlink" title="从输入URL到页面加载发生了什么?"></a>从输入URL到页面加载发生了什么?</h1><ol>
+<li><p>浏览器地址栏输入 ‘<a href="https://www.baidu.com" target="_blank" rel="external">https://www.baidu.com</a>‘</p>
+</li>
+<li><p>DNS解析 : 将IP地址转化成有语义化的域名 ( 61.135.169.121 &gt; ‘<a href="https://www.baidu.com" target="_blank" rel="external">https://www.baidu.com</a>‘ )</p>
+<ul>
+<li><p>解析过程 : <img src="/images/dns.png" alt="image"></p>
+<ul>
+<li><p>查询路径 : 本地服务器 &gt; 根域名服务器 &gt; 顶级域名服务器 &gt; 主域名服务器</p>
+</li>
+<li><p>DNS缓存 : (浏览器缓存，系统缓存，路由器缓存，IPS服务器缓存) &gt; (根域名服务器缓存) &gt; (顶级域名服务器缓存) &gt; (主域名服务器缓存)</p>
+</li>
+<li><p>DNS负载均衡 : 在多处建立子机器，主服务器可根据子机器的负载量、离用户地理位置的距离等因素来决定由哪个子机器去响应用户的请求，而不用直接去响应用户的请求。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>TCP连接</p>
+</li>
+<li><p>HTTP请求 : 请求行( 请求方法 请求路径 协议及版本 )、请求头、请求正文( 参数 )</p>
+</li>
+<li><p>服务器处理请求并返回HTTP报文 : 状态码、响应头、响应报文( 返回的内容 )</p>
+</li>
+<li><p>浏览器解析渲染页面</p>
+<ul>
+<li><p>html、css解析渲染 : <img src="/images/render.png" alt="image"></p>
+<ol>
+<li><p>浏览器把获取到的HTML代码解析成DOM树，HTML中的每个tag都是DOM树中的1个节点，根节点就是我们常用的document对象。DOM树里包含了所有HTML标签，包括display:none隐藏，还有用JS动态添加的元素等。</p>
+</li>
+<li><p>浏览器把所有样式(用户定义的CSS和用户代理)解析成样式结构体，在解析的过程中会去掉浏览器不能识别的样式，比如IE会去掉-moz开头的样式，而FF会去掉_开头的样式。</p>
+</li>
+<li><p>DOM Tree 和样式结构体组合后构建render tree, render tree类似于DOM tree，但区别很大，render tree能识别样式，render tree中每个NODE都有自己的style，而且 render tree不包含隐藏的节点 (比如display:none的节点，还有head节点)，因为这些节点不会用于呈现，而且不会影响呈现的，所以就不会包含到 render tree中。注意 visibility:hidden隐藏的元素还是会包含到 render tree中的，因为visibility:hidden 会影响布局(layout)，会占有空间。根据CSS2的标准，render tree中的每个节点都称为Box (Box dimensions)，理解页面元素为一个具有填充、边距、边框和位置的盒子。</p>
+</li>
+<li><p>一旦render tree构建完毕后，浏览器就可以根据render tree来绘制页面了</p>
+</li>
+</ol>
+<ul>
+<li><p>回流与重绘</p>
+<ul>
+<li><p>当render tree中的一部分(或全部)因为元素的规模尺寸，布局，隐藏等改变而需要重新构建。这就称为回流(reflow)。每个页面至少需要一次回流，就是在页面第一次加载的时候。在回流的时候，浏览器会使渲染树中受到影响的部分失效，并重新构造这部分渲染树，完成回流后，浏览器会重新绘制受影响的部分到屏幕中，该过程成为重绘。</p>
+</li>
+<li><p>当render tree中的一些元素需要更新属性，而这些属性只是影响元素的外观，风格，而不会影响布局的，比如background-color。则就叫称为重绘。</p>
+</li>
+<li><p>注意：回流必将引起重绘，而重绘不一定会引起回流。回流可以理解为render树的结构发生了变化，需要重新构建；而重绘就是结构没有变化，只是一些对结构布局没有产生影响的元素发生了变化（如：字体颜色）。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>js解析 : <img src="/images/analysis.png" alt="image"></p>
+<p>  JS的解析是由浏览器中的JS解析引擎完成的。JS是单线程运行，但是又有些任务会比较耗时，这个时候就需要将任务置为’异步’了。启动该任务之后，不需要等到该任务结束，就可以开始执行后面的任务，但是主线程中会有个记录该异步任务的事件，当该异步任务执行完成时，主线程就开始执行此任务完成后的回调事件。</p>
+<p>参考文章 : <a href="https://segmentfault.com/a/1190000006879700#articleHeader3" target="_blank" rel="external">从输入URL到页面加载发生了什么</a></p>
+</li>
+</ul>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/ui-bootstrap之时间插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="MrGao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="大高小郑的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/21/ui-bootstrap之时间插件/" itemprop="url">DatePicker-Popup VS DatetimePicker-Popup</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-21T00:00:00+08:00">
+                2017-12-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">in</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index">
+                    <span itemprop="name">Angular</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="DatePicker-Popup-gt-AngularJs的时间插件，不可精确到分钟"><a href="#DatePicker-Popup-gt-AngularJs的时间插件，不可精确到分钟" class="headerlink" title="DatePicker-Popup &gt; AngularJs的时间插件，不可精确到分钟"></a>DatePicker-Popup &gt; AngularJs的时间插件，不可精确到分钟</h1><p><img src="/images/DatePicker.png" alt="image"></p>
+<ul>
+<li>依赖文件</li>
+</ul>
+<p><a href="https://github.com/angular/angular.js/tree/master/src/ngLocale" target="_blank" rel="external">angular-locale_zh-cn.js下载地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./bootstrap/css/bootstrap.min.css&quot;&gt;</div><div class="line">&lt;script src=&quot;./angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./angular-locale_zh-cn.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>依赖模快</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;app&apos;, [&apos;ui.bootstrap&apos;])</div></pre></td></tr></table></figure>
+<ul>
+<li>部分代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;form class=&quot;form-group&quot;&gt;</div><div class="line">    开始时间 :</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">            &lt;input type=&quot;text&quot;</div><div class="line">                   class=&quot;form-control&quot;</div><div class="line">                   uib-datepicker-popup=&quot;&#123;&#123;more.format&#125;&#125;&quot;</div><div class="line">                   ng-model=&quot;more.startDate&quot;</div><div class="line">                   is-open=&quot;more.isStartOpen&quot;</div><div class="line">                   ng-required=&quot;true&quot;</div><div class="line">                   close-text=&quot;关闭&quot;</div><div class="line">                   clear-text=&quot;清空&quot;</div><div class="line">                   current-text=&quot;今天&quot;</div><div class="line">                   alt-input-formats=&quot;more.altInputFormats&quot;/&gt;</div><div class="line">            &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openStartPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    结束时间 :</div><div class="line">    &lt;!--编写代码时，请去掉以下内容注释，否则代码错误，这里加注释只是为了解释说明--&gt;</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">            &lt;input type=&quot;text&quot;</div><div class="line">                   class=&quot;form-control&quot;</div><div class="line">                   &lt;!--日期的显示格式--&gt;</div><div class="line">                   uib-datepicker-popup=&quot;&#123;&#123;more.format&#125;&#125;&quot;</div><div class="line">                   ng-model=&quot;more.endDate&quot;</div><div class="line">                   &lt;!--是否显示日期面板--&gt;</div><div class="line">                   is-open=&quot;more.isEndOpen&quot;</div><div class="line">                   ng-required=&quot;true&quot;</div><div class="line">                   &lt;!--按钮显示的文字--&gt;</div><div class="line">                   close-text=&quot;关闭&quot;</div><div class="line">                   clear-text=&quot;清空&quot;</div><div class="line">                   current-text=&quot;今天&quot;</div><div class="line">                   &lt;!--对日期控件的其他配置（minDate，结束时间需始终大于开始时间）--&gt;</div><div class="line">                   datepicker-options=&quot;endOptions&quot;</div><div class="line">                   alt-input-formats=&quot;more.altInputFormats&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openEndPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<h1 id="DateTimePicker-Popup-gt-AngularJs的时间插件，可精确到分钟"><a href="#DateTimePicker-Popup-gt-AngularJs的时间插件，可精确到分钟" class="headerlink" title="DateTimePicker-Popup &gt; AngularJs的时间插件，可精确到分钟"></a>DateTimePicker-Popup &gt; AngularJs的时间插件，可精确到分钟</h1><p><img src="/images/DatetimePicker01.png" alt="image"></p>
+<ul>
+<li>依赖文件</li>
+</ul>
+<p><a href="https://github.com/Gillardo/bootstrap-ui-datetime-picker" target="_blank" rel="external">datetime-picker相关文件下载地址</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./bootstrap/css/bootstrap.min.css&quot;&gt;</div><div class="line">&lt;script src=&quot;./angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./datetime-picker.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./datetime-picker.tpls.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./angular-locale_zh-cn.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>依赖模快</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;app&apos;, [&apos;ui.bootstrap&apos;, &apos;ui.bootstrap.datetimepicker&apos;])</div></pre></td></tr></table></figure>
+<ul>
+<li>部分代码如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;form class=&quot;form-group&quot;&gt;</div><div class="line">    开始时间 :</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot;</div><div class="line">               class=&quot;form-control&quot;</div><div class="line">               datetime-picker=&quot;yyyy-MM-dd HH:mm&quot;</div><div class="line">               ng-model=&quot;more.startDate&quot;</div><div class="line">               is-open=&quot;more.isStartOpen&quot;</div><div class="line">               button-bar=&quot;more.buttonBar&quot;</div><div class="line">               ng-required=&quot;true&quot;/&gt;</div><div class="line">            &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openStartPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    结束时间 :</div><div class="line">    &lt;!--编写代码时，请去掉以下内容注释，否则代码错误，这里加注释只是为了解释说明--&gt;</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot;</div><div class="line">               class=&quot;form-control&quot;</div><div class="line">               &lt;!--日期的显示格式--&gt;</div><div class="line">               datetime-picker=&quot;yyyy-MM-dd HH:mm&quot;</div><div class="line">               ng-model=&quot;more.endDate&quot;</div><div class="line">               &lt;!--是否显示日期面板--&gt;</div><div class="line">               is-open=&quot;more.isEndOpen&quot;</div><div class="line">               &lt;!--设置日期控件中按钮的显示文字和类名--&gt;</div><div class="line">               button-bar=&quot;more.buttonBar&quot;</div><div class="line">               ng-required=&quot;true&quot;</div><div class="line">               &lt;!--对日期控件的其他配置（minDate，结束时间需始终大于开始时间）--&gt;</div><div class="line">               datepicker-options=&quot;endOptions&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openEndPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>js部分代码如下 :</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">buttonBar: &#123;</div><div class="line">    show: true,</div><div class="line">    now: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;现在&apos;,</div><div class="line">        cls: &apos;btn-sm btn-info&apos;</div><div class="line">    &#125;,</div><div class="line">    today: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;今天&apos;,</div><div class="line">        cls: &apos;btn-sm btn-info&apos;</div><div class="line">    &#125;,</div><div class="line">    clear: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;清除&apos;,</div><div class="line">        cls: &apos;btn-sm btn-danger&apos;</div><div class="line">    &#125;,</div><div class="line">    date: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;日期&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;,</div><div class="line">    time: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;时间&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;,</div><div class="line">    close: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;确认&apos;,</div><div class="line">        cls: &apos;btn-sm btn-success&apos;</div><div class="line">    &#125;,</div><div class="line">    cancel: &#123;</div><div class="line">        show: false,</div><div class="line">        text: &apos;取消&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="https://github.com/dagaoxiaozheng/ui-bootstrap-datepicker" target="_blank" rel="external">详细代码，请点击这里</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -261,7 +632,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-21T00:00:00+08:00">
                 2017-12-21
@@ -282,7 +653,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -526,180 +897,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/21/ui-bootstrap之时间插件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="MrGao">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="大高小郑的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/21/ui-bootstrap之时间插件/" itemprop="url">DatePicker-Popup VS DatetimePicker-Popup</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-21T00:00:00+08:00">
-                2017-12-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Angular/" itemprop="url" rel="index">
-                    <span itemprop="name">Angular</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="DatePicker-Popup-gt-AngularJs的时间插件，不可精确到分钟"><a href="#DatePicker-Popup-gt-AngularJs的时间插件，不可精确到分钟" class="headerlink" title="DatePicker-Popup &gt; AngularJs的时间插件，不可精确到分钟"></a>DatePicker-Popup &gt; AngularJs的时间插件，不可精确到分钟</h1><p><img src="/images/DatePicker.png" alt="image"></p>
-<ul>
-<li>依赖文件</li>
-</ul>
-<p><a href="https://github.com/angular/angular.js/tree/master/src/ngLocale" target="_blank" rel="external">angular-locale_zh-cn.js下载地址</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./bootstrap/css/bootstrap.min.css&quot;&gt;</div><div class="line">&lt;script src=&quot;./angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./angular-locale_zh-cn.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>依赖模快</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;app&apos;, [&apos;ui.bootstrap&apos;])</div></pre></td></tr></table></figure>
-<ul>
-<li>部分代码如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">&lt;form class=&quot;form-group&quot;&gt;</div><div class="line">    开始时间 :</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">            &lt;input type=&quot;text&quot;</div><div class="line">                   class=&quot;form-control&quot;</div><div class="line">                   uib-datepicker-popup=&quot;&#123;&#123;more.format&#125;&#125;&quot;</div><div class="line">                   ng-model=&quot;more.startDate&quot;</div><div class="line">                   is-open=&quot;more.isStartOpen&quot;</div><div class="line">                   ng-required=&quot;true&quot;</div><div class="line">                   close-text=&quot;关闭&quot;</div><div class="line">                   clear-text=&quot;清空&quot;</div><div class="line">                   current-text=&quot;今天&quot;</div><div class="line">                   alt-input-formats=&quot;more.altInputFormats&quot;/&gt;</div><div class="line">            &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openStartPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    结束时间 :</div><div class="line">    &lt;!--编写代码时，请去掉以下内容注释，否则代码错误，这里加注释只是为了解释说明--&gt;</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">            &lt;input type=&quot;text&quot;</div><div class="line">                   class=&quot;form-control&quot;</div><div class="line">                   &lt;!--日期的显示格式--&gt;</div><div class="line">                   uib-datepicker-popup=&quot;&#123;&#123;more.format&#125;&#125;&quot;</div><div class="line">                   ng-model=&quot;more.endDate&quot;</div><div class="line">                   &lt;!--是否显示日期面板--&gt;</div><div class="line">                   is-open=&quot;more.isEndOpen&quot;</div><div class="line">                   ng-required=&quot;true&quot;</div><div class="line">                   &lt;!--按钮显示的文字--&gt;</div><div class="line">                   close-text=&quot;关闭&quot;</div><div class="line">                   clear-text=&quot;清空&quot;</div><div class="line">                   current-text=&quot;今天&quot;</div><div class="line">                   &lt;!--对日期控件的其他配置（minDate，结束时间需始终大于开始时间）--&gt;</div><div class="line">                   datepicker-options=&quot;endOptions&quot;</div><div class="line">                   alt-input-formats=&quot;more.altInputFormats&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openEndPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
-<h1 id="DateTimePicker-Popup-gt-AngularJs的时间插件，可精确到分钟"><a href="#DateTimePicker-Popup-gt-AngularJs的时间插件，可精确到分钟" class="headerlink" title="DateTimePicker-Popup &gt; AngularJs的时间插件，可精确到分钟"></a>DateTimePicker-Popup &gt; AngularJs的时间插件，可精确到分钟</h1><p><img src="/images/DatetimePicker01.png" alt="image"></p>
-<ul>
-<li>依赖文件</li>
-</ul>
-<p><a href="https://github.com/Gillardo/bootstrap-ui-datetime-picker" target="_blank" rel="external">datetime-picker相关文件下载地址</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;link rel=&quot;stylesheet&quot; href=&quot;./bootstrap/css/bootstrap.min.css&quot;&gt;</div><div class="line">&lt;script src=&quot;./angular.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./ui-bootstrap-tpls.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./datetime-picker.min.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./datetime-picker.tpls.js&quot;&gt;&lt;/script&gt;</div><div class="line">&lt;script src=&quot;./angular-locale_zh-cn.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>依赖模快</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">angular.module(&apos;app&apos;, [&apos;ui.bootstrap&apos;, &apos;ui.bootstrap.datetimepicker&apos;])</div></pre></td></tr></table></figure>
-<ul>
-<li>部分代码如下：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">&lt;form class=&quot;form-group&quot;&gt;</div><div class="line">    开始时间 :</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot;</div><div class="line">               class=&quot;form-control&quot;</div><div class="line">               datetime-picker=&quot;yyyy-MM-dd HH:mm&quot;</div><div class="line">               ng-model=&quot;more.startDate&quot;</div><div class="line">               is-open=&quot;more.isStartOpen&quot;</div><div class="line">               button-bar=&quot;more.buttonBar&quot;</div><div class="line">               ng-required=&quot;true&quot;/&gt;</div><div class="line">            &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openStartPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    结束时间 :</div><div class="line">    &lt;!--编写代码时，请去掉以下内容注释，否则代码错误，这里加注释只是为了解释说明--&gt;</div><div class="line">    &lt;div class=&quot;input-group col-md-2&quot;&gt;</div><div class="line">        &lt;input type=&quot;text&quot;</div><div class="line">               class=&quot;form-control&quot;</div><div class="line">               &lt;!--日期的显示格式--&gt;</div><div class="line">               datetime-picker=&quot;yyyy-MM-dd HH:mm&quot;</div><div class="line">               ng-model=&quot;more.endDate&quot;</div><div class="line">               &lt;!--是否显示日期面板--&gt;</div><div class="line">               is-open=&quot;more.isEndOpen&quot;</div><div class="line">               &lt;!--设置日期控件中按钮的显示文字和类名--&gt;</div><div class="line">               button-bar=&quot;more.buttonBar&quot;</div><div class="line">               ng-required=&quot;true&quot;</div><div class="line">               &lt;!--对日期控件的其他配置（minDate，结束时间需始终大于开始时间）--&gt;</div><div class="line">               datepicker-options=&quot;endOptions&quot;/&gt;</div><div class="line"></div><div class="line">        &lt;span class=&quot;input-group-btn&quot;&gt;</div><div class="line">                 &lt;button type=&quot;button&quot; class=&quot;btn btn-default&quot; ng-click=&quot;openEndPicker()&quot;&gt;&lt;i</div><div class="line">                         class=&quot;glyphicon glyphicon-calendar&quot;&gt;&lt;/i&gt;&lt;/button&gt;</div><div class="line">            &lt;/span&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
-<ul>
-<li>js部分代码如下 :</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">buttonBar: &#123;</div><div class="line">    show: true,</div><div class="line">    now: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;现在&apos;,</div><div class="line">        cls: &apos;btn-sm btn-info&apos;</div><div class="line">    &#125;,</div><div class="line">    today: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;今天&apos;,</div><div class="line">        cls: &apos;btn-sm btn-info&apos;</div><div class="line">    &#125;,</div><div class="line">    clear: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;清除&apos;,</div><div class="line">        cls: &apos;btn-sm btn-danger&apos;</div><div class="line">    &#125;,</div><div class="line">    date: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;日期&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;,</div><div class="line">    time: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;时间&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;,</div><div class="line">    close: &#123;</div><div class="line">        show: true,</div><div class="line">        text: &apos;确认&apos;,</div><div class="line">        cls: &apos;btn-sm btn-success&apos;</div><div class="line">    &#125;,</div><div class="line">    cancel: &#123;</div><div class="line">        show: false,</div><div class="line">        text: &apos;取消&apos;,</div><div class="line">        cls: &apos;btn-sm btn-default&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://github.com/dagaoxiaozheng/ui-bootstrap-datepicker" target="_blank" rel="external">详细代码，请点击这里</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/20/ui-router VS ngRouter/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -729,7 +926,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-20T00:00:00+08:00">
                 2017-12-20
@@ -750,7 +947,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -873,7 +1070,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-17T00:00:00+08:00">
                 2017-11-17
@@ -894,7 +1091,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1034,7 +1231,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
                 2017-11-08
@@ -1055,7 +1252,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1193,7 +1390,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
                 2017-11-01
@@ -1214,7 +1411,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1341,7 +1538,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-31T00:00:00+08:00">
                 2017-10-31
@@ -1362,7 +1559,7 @@
                 <i class="fa fa-folder-o"></i>
               </span>
               
-                <span class="post-meta-item-text">In</span>
+                <span class="post-meta-item-text">in</span>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -1536,8 +1733,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -1547,8 +1744,8 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">categories</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">Kategorien</span>
                 
               </div>
             
